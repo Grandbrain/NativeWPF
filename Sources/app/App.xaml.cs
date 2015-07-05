@@ -1,4 +1,4 @@
-﻿namespace NativeWPF
+﻿namespace app
 {
     public partial class App
     {
