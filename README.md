@@ -11,12 +11,6 @@
 There are several ways to contribute to NativeWPF project:
 * [Submit bugs](https://github.com/Grandbrain/NativeWPF/issues) and help me verify fixes.
 * Review the [source code changes](https://github.com/Grandbrain/NativeWPF/pulls).
-* Read and update [documentation](https://github.com/Grandbrain/NativeWPF/tree/master/Docs) files.
-
-
-## Documentation
-
-*  [How It Works](https://github.com/Grandbrain/NativeWPF/blob/master/Docs/HowItWorks.pdf)
 
 
 ## Building
