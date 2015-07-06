@@ -1,44 +1,81 @@
-
-#include "Renderer.h"
+#include <d2d1.h>
 
 namespace lib
 {
-	bool Renderer::Initialize(HWND handle)
+	class Renderer
 	{
-		RECT rect;
+	public:
 
-		if (!GetClientRect(handle, &rect))
-			return false;
+		~Renderer()
+		{
+			if (factory) factory->Release();
+			if (target) target->Release();
+		}
 
-		if (FAILED(D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &mFactory)))
-			return false;
+		bool Initialize(HWND handle)
+		{
+			RECT rect;
+			if (!GetClientRect(handle, &rect)) return false;
 
-		if (FAILED(mFactory->CreateHwndRenderTarget(D2D1::RenderTargetProperties(),
-			D2D1::HwndRenderTargetProperties(handle, D2D1::SizeU(rect.right - rect.left,
-			rect.bottom - rect.top)), &mTarget)))
-			return false;
+			if (FAILED(D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &factory)))
+				return false;
 
-		return true;
-	}
+			return SUCCEEDED(factory->CreateHwndRenderTarget(D2D1::RenderTargetProperties(),
+				D2D1::HwndRenderTargetProperties(handle, D2D1::SizeU(rect.right - rect.left,
+				rect.bottom - rect.top)), &target));
+		}
 
-	void Renderer::Render()
+		void Render()
+		{
+			if (!target) return;
+			target->BeginDraw();
+			target->Clear(D2D1::ColorF(D2D1::ColorF::Orange));
+			target->EndDraw();
+		}
+
+		void Resize(HWND handle)
+		{
+			if (!target) return;
+			RECT rect;
+			if (!GetClientRect(handle, &rect)) return;
+			D2D1_SIZE_U size = D2D1::SizeU(rect.right - rect.left, rect.bottom - rect.top);
+			target->Resize(size);
+		}
+
+	private:
+
+		ID2D1Factory* factory;
+		ID2D1HwndRenderTarget* target;
+	};
+
+	public ref class Scene
 	{
-		if (!mTarget) return;
-		mTarget->BeginDraw();
-		mTarget->Clear(D2D1::ColorF(D2D1::ColorF::Orange));
-		mTarget->EndDraw();
-	}
+	public:
 
-	void Renderer::Resize(HWND handle)
-	{
-		if (!mTarget) return;
+		Scene(System::IntPtr handle)
+		{
+			renderer = new Renderer;
+			if (renderer) renderer->Initialize((HWND)handle.ToPointer());
+		}
 
-		RECT rect;
+		~Scene()
+		{
+			delete renderer;
+		}
 
-		if (!GetClientRect(handle, &rect))
-			return;
+		void Resize(System::IntPtr handle)
+		{
+			HWND hwnd = (HWND)handle.ToPointer();
+			if (renderer) renderer->Resize(hwnd);
+		}
 
-		D2D1_SIZE_U size = D2D1::SizeU(rect.right - rect.left, rect.bottom - rect.top);
-		mTarget->Resize(size);
-	}
+		void Draw()
+		{
+			if (renderer) renderer->Render();
+		}
+
+	private:
+
+		Renderer* renderer;
+	};
 }

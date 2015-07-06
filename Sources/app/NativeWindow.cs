@@ -11,6 +11,8 @@ namespace app
         public new IntPtr Handle { get; private set; }
         Procedure procedure;
         Scene scene;
+        const int WM_PAINT = 0x000F;
+        const int WM_SIZE = 0x0005;
 
         [StructLayout(LayoutKind.Sequential)]
         struct WindowClass
@@ -154,7 +156,7 @@ namespace app
         {
             try
             {
-                if (message == 0x000F)
+                if (message == WM_PAINT)
                 {
                     Paint paint;
                     BeginPaint(handle, out paint);
@@ -163,7 +165,7 @@ namespace app
                     handled = true;
                 }
 
-                if (message == 0x0005)
+                if (message == WM_SIZE)
                 {
                     scene.Resize(handle);
                     handled = true;
