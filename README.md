@@ -3,7 +3,7 @@
 
 # Welcome to NativeWPF project!
 
-[NativeWPF](https://github.com/Grandbrain/NativeWPF) is a small .NET application that demonstrates native window usage in WPF. The program creates Win32 child window in managed code and demonstrates native DirectX rendering that uses HWND of that window. The program is based on the .NET Framework and can run only on Windows platforms.
+[NativeWPF](https://github.com/Grandbrain/NativeWPF) is an application that demonstrates native window usage in WPF. The program creates Win32 child window in managed code and demonstrates native DirectX rendering that uses HWND of that window. The program is based on the .NET Framework and can run only on Windows platforms.
 
 
 ## Contribute
