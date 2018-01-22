@@ -12,17 +12,13 @@ namespace lib
 			if (target) target->Release();
 		}
 
-		bool Initialize(HWND handle)
+		bool Initialize(HWND handle, int width, int height)
 		{
-			RECT rect;
-			if (!GetClientRect(handle, &rect)) return false;
-
 			if (FAILED(D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &factory)))
 				return false;
 
 			return SUCCEEDED(factory->CreateHwndRenderTarget(D2D1::RenderTargetProperties(),
-				D2D1::HwndRenderTargetProperties(handle, D2D1::SizeU(rect.right - rect.left,
-				rect.bottom - rect.top)), &target));
+				D2D1::HwndRenderTargetProperties(handle, D2D1::SizeU(width, height)), &target));
 		}
 
 		void Render()
@@ -33,12 +29,10 @@ namespace lib
 			target->EndDraw();
 		}
 
-		void Resize(HWND handle)
+		void Resize(int width, int height)
 		{
 			if (!target) return;
-			RECT rect;
-			if (!GetClientRect(handle, &rect)) return;
-			D2D1_SIZE_U size = D2D1::SizeU(rect.right - rect.left, rect.bottom - rect.top);
+			D2D1_SIZE_U size = D2D1::SizeU(width, height);
 			target->Resize(size);
 		}
 
@@ -52,10 +46,10 @@ namespace lib
 	{
 	public:
 
-		Scene(System::IntPtr handle)
+		Scene(System::IntPtr handle, int width, int height)
 		{
 			renderer = new Renderer;
-			if (renderer) renderer->Initialize((HWND)handle.ToPointer());
+			if (renderer) renderer->Initialize((HWND)handle.ToPointer(), width, height);
 		}
 
 		~Scene()
@@ -63,10 +57,9 @@ namespace lib
 			delete renderer;
 		}
 
-		void Resize(System::IntPtr handle)
+		void Resize(int width, int height)
 		{
-			HWND hwnd = (HWND)handle.ToPointer();
-			if (renderer) renderer->Resize(hwnd);
+			if (renderer) renderer->Resize(width, height);
 		}
 
 		void Draw()

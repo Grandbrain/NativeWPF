@@ -1,9 +1,11 @@
 ﻿<Window x:Class="app.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:i="clr-namespace:app"
+        xmlns:w="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <i:NativeWindow></i:NativeWindow>
+        <WindowsFormsHost>
+            <w:Control HandleCreated="ControlHandleCreated" SizeChanged="ControlResize" Paint="ControlPaint"></w:Control>
+        </WindowsFormsHost>
     </Grid>
 </Window>
