@@ -1,9 +1,12 @@
-[![Release](https://img.shields.io/badge/Release-v1.0.0-brightgreen.svg)](https://github.com/Grandbrain/NativeWPF/releases)
-[![Licence](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/Grandbrain/NativeWPF/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/Grandbrain/NativeWPF.svg)](https://github.com/Grandbrain/NativeWPF/releases)
+[![GitHub issues](https://img.shields.io/github/issues/Grandbrain/NativeWPF.svg)](https://github.com/Grandbrain/NativeWPF/issues)
+[![GitHub forks](https://img.shields.io/github/forks/Grandbrain/NativeWPF.svg)](https://github.com/Grandbrain/NativeWPF/network/members)
+[![GitHub stars](https://img.shields.io/github/stars/Grandbrain/NativeWPF.svg)](https://github.com/Grandbrain/NativeWPF/stargazers)
+[![GitHub license](https://img.shields.io/github/license/Grandbrain/NativeWPF.svg)](https://github.com/Grandbrain/NativeWPF/blob/master/LICENSE)
 
 # Welcome to NativeWPF project!
 
-[NativeWPF](https://github.com/Grandbrain/NativeWPF) is an application that demonstrates native window usage in WPF. The program creates Win32 child window in managed code and demonstrates native DirectX rendering that uses HWND of that window. The program is based on the .NET Framework and can run only on Windows platforms.
+[NativeWPF](https://github.com/Grandbrain/NativeWPF) is an application that demonstrates native window usage in WPF. The program creates host control in managed code and demonstrates native DirectX rendering that uses HWND of that control. The program is based on the .NET Framework and can run only on Windows platforms.
 
 
 ## Contribute
